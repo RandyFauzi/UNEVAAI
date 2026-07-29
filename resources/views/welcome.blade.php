@@ -206,15 +206,18 @@
     </section>
 
     <!-- Section 2: Global Network -->
-    <section id="network" class="relative py-24 px-6 border-t border-white/5 bg-neutral-950">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+    <section id="network" class="relative py-24 px-6 border-t border-white/5 bg-neutral-950 overflow-hidden">
+        <!-- Radial Grid Background for entire section -->
+        <div class="absolute inset-0 z-0 bg-[radial-gradient(#333_1px,transparent_1px)] bg-[size:30px_30px] opacity-40"></div>
+        
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-center relative z-10">
             
             <div class="lg:col-span-5 space-y-6">
                 <div class="text-xs font-mono tracking-widest text-blue-500 uppercase">◉ Decentrilized Logistics</div>
                 <h2 class="reveal font-display font-bold text-4xl md:text-5xl uppercase tracking-tight leading-tight">
                     Diverse crowdsourcing, <br>global authenticity
                 </h2>
-                <p class="text-white/60 leading-relaxed">
+                <p class="reveal reveal-delay-100 text-white/60 leading-relaxed">
                     We deploy a rapidly scalable, vetted network of human contributors to capture real-world ground truth data across residential, commercial, and industrial environments.
                 </p>
                 <div class="pt-4">
@@ -223,17 +226,15 @@
                     </a>
                 </div>
             </div>
-            <div class="lg:col-span-7 w-full h-full flex flex-col items-center justify-center rounded-2xl">
-                <article class="w-full h-full min-h-[500px] overflow-hidden mx-auto text-center border border-zinc-800 rounded-2xl relative bg-zinc-950">
-                    <!-- Radial Grid Background (Dark Mode) -->
-                    <div class="absolute top-0 left-0 z-[1] h-full w-full bg-[radial-gradient(#333_1px,transparent_1px)] bg-[size:20px_20px]"></div>
-                    
+            
+            <div class="lg:col-span-7 w-full h-full flex flex-col items-center justify-center">
+                <article class="w-full h-full min-h-[500px] mx-auto text-center relative">
                     <div class="relative z-10 pt-8 h-full flex flex-col items-center">
                         <h2 class="reveal sm:text-5xl text-3xl font-semibold bg-gradient-to-b from-white to-[#9c9c9c] bg-clip-text text-transparent leading-[100%] tracking-tighter">
                             GLOBAL NETWORK
                         </h2>
                         
-                        <!-- The actual interactive Cobe WebGL Globe canvas -->
+                        <!-- The actual interactive custom WebGL Globe canvas -->
                         <div class="absolute bottom-[-2rem] translate-y-4 right-0 sm:-right-10 flex items-center justify-center z-10 w-full sm:max-w-[800px] max-w-[600px] mx-auto pointer-events-auto h-[450px]">
                             <canvas id="cobe-globe" class="w-full h-full" style="aspect-ratio: 1/1; cursor: grab;"></canvas>
                         </div>
