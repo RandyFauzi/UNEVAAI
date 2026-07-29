@@ -1,82 +1,7 @@
-import createGlobe from 'cobe';
-
 document.addEventListener('DOMContentLoaded', () => {
     const canvas = document.getElementById('cobe-globe');
     if (canvas) {
-        let phi = 0;
-        let pointerInteracting = null;
-        let pointerInteractionMovement = 0;
-        let globe = null;
-
-        const initGlobe = () => {
-            if (globe) {
-                globe.destroy();
-            }
-            
-            // Get physical dimensions of canvas to render crisp high-res dots
-            const currentWidth = canvas.offsetWidth;
-            const currentHeight = canvas.offsetHeight;
-
-            globe = createGlobe(canvas, {
-                devicePixelRatio: 2,
-                width: currentWidth * 2,
-                height: currentHeight * 2,
-                phi: 0,
-                theta: 0.3,
-                dark: 1,
-                scale: 1.0,
-                diffuse: 1.2,
-                mapSamples: 16000,
-                mapBrightness: 6,
-                baseColor: [1, 1, 1], // Pure white dots (glow/dark mode handles contrast)
-                markerColor: [0.1, 0.8, 1], // Cyan markers
-                glowColor: [0.05, 0.05, 0.05], // Subtle glow for dark background
-                opacity: 1,
-                offset: [0, 0],
-                markers: [
-                    { location: [37.7595, -122.4367], size: 0.03 }, // San Francisco
-                    { location: [40.7128, -74.0060], size: 0.1 }, // New York
-                    { location: [51.5072, -0.1276], size: 0.05 }, // London
-                    { location: [-6.2088, 106.8456], size: 0.08 }, // Jakarta
-                    { location: [35.6895, 139.6917], size: 0.06 }, // Tokyo
-                ],
-                onRender: (state) => {
-                    if (!pointerInteracting) {
-                        phi += 0.003;
-                    }
-                    state.phi = phi + pointerInteractionMovement;
-                },
-            });
-        };
-
-        // Initialize and handle resizing
-        initGlobe();
-        window.addEventListener('resize', () => {
-            initGlobe();
-        });
-
-        // Add interactive drag controls
-        canvas.addEventListener('pointerdown', (e) => {
-            pointerInteracting = e.clientX - pointerInteractionMovement;
-            canvas.style.cursor = 'grabbing';
-        });
-
-        canvas.addEventListener('pointerup', () => {
-            pointerInteracting = null;
-            canvas.style.cursor = 'grab';
-        });
-
-        canvas.addEventListener('pointerout', () => {
-            pointerInteracting = null;
-            canvas.style.cursor = 'grab';
-        });
-
-        canvas.addEventListener('pointermove', (e) => {
-            if (pointerInteracting !== null) {
-                const delta = e.clientX - pointerInteracting;
-                pointerInteractionMovement = delta * 0.01;
-            }
-        });
+        initCustomGlobe(canvas);
     }
 
     // Scroll Reveal Intersection Observer
@@ -98,3 +23,246 @@ document.addEventListener('DOMContentLoaded', () => {
         revealObserver.observe(el);
     });
 });
+
+function initCustomGlobe(canvas) {
+    const DEFAULT_MARKERS = [
+        { lat: 37.78, lng: -122.42, label: "San Francisco" },
+        { lat: 51.51, lng: -0.13, label: "London" },
+        { lat: 35.68, lng: 139.69, label: "Tokyo" },
+        { lat: -33.87, lng: 151.21, label: "Sydney" },
+        { lat: 1.35, lng: 103.82, label: "Singapore" },
+        { lat: 55.76, lng: 37.62, label: "Moscow" },
+        { lat: -23.55, lng: -46.63, label: "São Paulo" },
+        { lat: 19.43, lng: -99.13, label: "Mexico City" },
+        { lat: 28.61, lng: 77.21, label: "Delhi" },
+        { lat: 36.19, lng: 44.01, label: "Erbil" },
+        { lat: -6.20, lng: 106.84, label: "Jakarta" },
+    ];
+
+    const DEFAULT_CONNECTIONS = [
+        { from: [37.78, -122.42], to: [51.51, -0.13] },
+        { from: [51.51, -0.13], to: [35.68, 139.69] },
+        { from: [35.68, 139.69], to: [-33.87, 151.21] },
+        { from: [37.78, -122.42], to: [1.35, 103.82] },
+        { from: [51.51, -0.13], to: [28.61, 77.21] },
+        { from: [37.78, -122.42], to: [-23.55, -46.63] },
+        { from: [1.35, 103.82], to: [-33.87, 151.21] },
+        { from: [28.61, 77.21], to: [36.19, 44.01] },
+        { from: [51.51, -0.13], to: [36.19, 44.01] },
+        { from: [35.68, 139.69], to: [-6.20, 106.84] },
+    ];
+
+    function latLngToXYZ(lat, lng, radius) {
+        const phi = ((90 - lat) * Math.PI) / 180;
+        const theta = ((lng + 180) * Math.PI) / 180;
+        return [
+            -(radius * Math.sin(phi) * Math.cos(theta)),
+            radius * Math.cos(phi),
+            radius * Math.sin(phi) * Math.sin(theta),
+        ];
+    }
+
+    function rotateY(x, y, z, angle) {
+        const cos = Math.cos(angle);
+        const sin = Math.sin(angle);
+        return [x * cos + z * sin, y, -x * sin + z * cos];
+    }
+
+    function rotateX(x, y, z, angle) {
+        const cos = Math.cos(angle);
+        const sin = Math.sin(angle);
+        return [x, y * cos - z * sin, y * sin + z * cos];
+    }
+
+    function project(x, y, z, cx, cy, fov) {
+        const scale = fov / (fov + z);
+        return [x * scale + cx, y * scale + cy, z];
+    }
+
+    const dotColor = "rgba(100, 180, 255, ALPHA)";
+    const arcColor = "rgba(100, 180, 255, 0.5)";
+    const markerColor = "rgba(100, 220, 255, 1)";
+    const autoRotateSpeed = 0.002;
+
+    let rotY = 0.4;
+    let rotX = 0.3;
+    let dragActive = false;
+    let startX = 0;
+    let startY = 0;
+    let startRotY = 0;
+    let startRotX = 0;
+    let time = 0;
+    let animId = 0;
+
+    const dots = [];
+    const numDots = 1200;
+    const goldenRatio = (1 + Math.sqrt(5)) / 2;
+    for (let i = 0; i < numDots; i++) {
+        const theta = (2 * Math.PI * i) / goldenRatio;
+        const phi = Math.acos(1 - (2 * (i + 0.5)) / numDots);
+        const x = Math.cos(theta) * Math.sin(phi);
+        const y = Math.cos(phi);
+        const z = Math.sin(theta) * Math.sin(phi);
+        dots.push([x, y, z]);
+    }
+
+    const ctx = canvas.getContext("2d");
+
+    function draw() {
+        const dpr = window.devicePixelRatio || 1;
+        const w = canvas.clientWidth;
+        const h = canvas.clientHeight;
+        
+        if (canvas.width !== w * dpr || canvas.height !== h * dpr) {
+            canvas.width = w * dpr;
+            canvas.height = h * dpr;
+        }
+
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+        const cx = w / 2;
+        const cy = h / 2;
+        const radius = Math.min(w, h) * 0.38;
+        const fov = 600;
+
+        if (!dragActive) {
+            rotY += autoRotateSpeed;
+        }
+        time += 0.015;
+
+        ctx.clearRect(0, 0, w, h);
+
+        const glowGrad = ctx.createRadialGradient(cx, cy, radius * 0.8, cx, cy, radius * 1.5);
+        glowGrad.addColorStop(0, "rgba(60, 140, 255, 0.03)");
+        glowGrad.addColorStop(1, "rgba(60, 140, 255, 0)");
+        ctx.fillStyle = glowGrad;
+        ctx.fillRect(0, 0, w, h);
+
+        ctx.beginPath();
+        ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+        ctx.strokeStyle = "rgba(100, 180, 255, 0.06)";
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        const ry = rotY;
+        const rx = rotX;
+
+        for (let i = 0; i < dots.length; i++) {
+            let [x, y, z] = dots[i];
+            x *= radius;
+            y *= radius;
+            z *= radius;
+
+            [x, y, z] = rotateX(x, y, z, rx);
+            [x, y, z] = rotateY(x, y, z, ry);
+
+            if (z > 0) continue;
+
+            const [sx, sy] = project(x, y, z, cx, cy, fov);
+            const depthAlpha = Math.max(0.1, 1 - (z + radius) / (2 * radius));
+            const dotSize = 1 + depthAlpha * 0.8;
+
+            ctx.beginPath();
+            ctx.arc(sx, sy, dotSize, 0, Math.PI * 2);
+            ctx.fillStyle = dotColor.replace("ALPHA", depthAlpha.toFixed(2));
+            ctx.fill();
+        }
+
+        for (const conn of DEFAULT_CONNECTIONS) {
+            const [lat1, lng1] = conn.from;
+            const [lat2, lng2] = conn.to;
+
+            let [x1, y1, z1] = latLngToXYZ(lat1, lng1, radius);
+            let [x2, y2, z2] = latLngToXYZ(lat2, lng2, radius);
+
+            [x1, y1, z1] = rotateX(x1, y1, z1, rx);
+            [x1, y1, z1] = rotateY(x1, y1, z1, ry);
+            [x2, y2, z2] = rotateX(x2, y2, z2, rx);
+            [x2, y2, z2] = rotateY(x2, y2, z2, ry);
+
+            if (z1 > radius * 0.3 && z2 > radius * 0.3) continue;
+
+            const [sx1, sy1] = project(x1, y1, z1, cx, cy, fov);
+            const [sx2, sy2] = project(x2, y2, z2, cx, cy, fov);
+
+            const midX = (x1 + x2) / 2;
+            const midY = (y1 + y2) / 2;
+            const midZ = (z1 + z2) / 2;
+            const midLen = Math.sqrt(midX * midX + midY * midY + midZ * midZ);
+            const arcHeight = radius * 1.25;
+            const elevX = (midX / midLen) * arcHeight;
+            const elevY = (midY / midLen) * arcHeight;
+            const elevZ = (midZ / midLen) * arcHeight;
+            const [scx, scy] = project(elevX, elevY, elevZ, cx, cy, fov);
+
+            ctx.beginPath();
+            ctx.moveTo(sx1, sy1);
+            ctx.quadraticCurveTo(scx, scy, sx2, sy2);
+            ctx.strokeStyle = arcColor;
+            ctx.lineWidth = 1.2;
+            ctx.stroke();
+
+            const t = (Math.sin(time * 1.2 + lat1 * 0.1) + 1) / 2;
+            const tx = (1 - t) * (1 - t) * sx1 + 2 * (1 - t) * t * scx + t * t * sx2;
+            const ty = (1 - t) * (1 - t) * sy1 + 2 * (1 - t) * t * scy + t * t * sy2;
+
+            ctx.beginPath();
+            ctx.arc(tx, ty, 2, 0, Math.PI * 2);
+            ctx.fillStyle = markerColor;
+            ctx.fill();
+        }
+
+        for (const marker of DEFAULT_MARKERS) {
+            let [x, y, z] = latLngToXYZ(marker.lat, marker.lng, radius);
+            [x, y, z] = rotateX(x, y, z, rx);
+            [x, y, z] = rotateY(x, y, z, ry);
+
+            if (z > radius * 0.1) continue;
+
+            const [sx, sy] = project(x, y, z, cx, cy, fov);
+
+            const pulse = Math.sin(time * 2 + marker.lat) * 0.5 + 0.5;
+            ctx.beginPath();
+            ctx.arc(sx, sy, 4 + pulse * 4, 0, Math.PI * 2);
+            ctx.strokeStyle = markerColor.replace("1)", `${0.2 + pulse * 0.15})`);
+            ctx.lineWidth = 1;
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.arc(sx, sy, 2.5, 0, Math.PI * 2);
+            ctx.fillStyle = markerColor;
+            ctx.fill();
+
+            if (marker.label) {
+                ctx.font = "10px system-ui, sans-serif";
+                ctx.fillStyle = markerColor.replace("1)", "0.6)");
+                ctx.fillText(marker.label, sx + 8, sy + 3);
+            }
+        }
+
+        animId = requestAnimationFrame(draw);
+    }
+
+    animId = requestAnimationFrame(draw);
+
+    canvas.addEventListener("pointerdown", (e) => {
+        dragActive = true;
+        startX = e.clientX;
+        startY = e.clientY;
+        startRotY = rotY;
+        startRotX = rotX;
+        canvas.setPointerCapture(e.pointerId);
+    });
+
+    canvas.addEventListener("pointermove", (e) => {
+        if (!dragActive) return;
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+        rotY = startRotY + dx * 0.005;
+        rotX = Math.max(-1, Math.min(1, startRotX + dy * 0.005));
+    });
+
+    canvas.addEventListener("pointerup", () => {
+        dragActive = false;
+    });
+}
