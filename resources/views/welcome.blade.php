@@ -321,10 +321,10 @@
             
             <div class="max-w-3xl mb-20 space-y-4">
                 <div class="text-xs font-mono tracking-widest text-blue-500 uppercase">◉ Fast Turnaround</div>
-                <h2 class="font-display font-bold text-4xl md:text-5xl uppercase tracking-tight">
+                <h2 class="reveal font-display font-bold text-4xl md:text-5xl uppercase tracking-tight">
                     Bespoke collection in days, not months
                 </h2>
-                <p class="text-white/60">
+                <p class="reveal reveal-delay-100 text-white/60">
                     Our streamlined contributor onboarding and strict internal ISO-aligned QA protocols mean your models never wait for data.
                 </p>
             </div>
@@ -335,7 +335,7 @@
                 <div class="hidden md:block absolute top-[2.5rem] left-[10%] right-[10%] h-[1px] bg-white/10 -z-10"></div>
                 
                 <!-- Step 1 -->
-                <div class="space-y-4">
+                <div class="reveal space-y-4">
                     <div class="w-16 h-16 rounded-xl border border-white/10 bg-black flex items-center justify-center text-xl font-mono text-blue-400 shadow-md">
                         01
                     </div>
@@ -344,7 +344,7 @@
                 </div>
 
                 <!-- Step 2 -->
-                <div class="space-y-4">
+                <div class="reveal reveal-delay-100 space-y-4">
                     <div class="w-16 h-16 rounded-xl border border-white/10 bg-black flex items-center justify-center text-xl font-mono text-blue-400 shadow-md">
                         02
                     </div>
@@ -353,7 +353,7 @@
                 </div>
 
                 <!-- Step 3 -->
-                <div class="space-y-4">
+                <div class="reveal reveal-delay-200 space-y-4">
                     <div class="w-16 h-16 rounded-xl border border-white/10 bg-black flex items-center justify-center text-xl font-mono text-blue-400 shadow-md">
                         03
                     </div>
@@ -362,7 +362,7 @@
                 </div>
 
                 <!-- Step 4 -->
-                <div class="space-y-4">
+                <div class="reveal reveal-delay-300 space-y-4">
                     <div class="w-16 h-16 rounded-xl border border-white/10 bg-black flex items-center justify-center text-xl font-mono text-blue-400 shadow-md">
                         04
                     </div>
@@ -381,7 +381,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
                 
                 <!-- Left: Big Stat Box -->
-                <div class="lg:col-span-6 border-thin bg-neutral-950 rounded-3xl p-8 md:p-12 relative overflow-hidden flex flex-col justify-between min-h-[450px]">
+                <div class="reveal lg:col-span-6 border-thin bg-neutral-950 rounded-3xl p-8 md:p-12 relative overflow-hidden flex flex-col justify-between min-h-[450px]">
                     <div class="absolute inset-0 grid-overlay opacity-20"></div>
                     <div class="absolute -left-16 -top-16 w-64 h-64 rounded-full bg-blue-600/10 blur-[100px]"></div>
                     
@@ -406,37 +406,37 @@
                 <div class="lg:col-span-6 space-y-8">
                     <div class="space-y-4">
                         <div class="text-xs font-mono tracking-widest text-blue-500 uppercase">◉ Domain Coverage</div>
-                        <h2 class="font-display font-bold text-4xl md:text-5xl uppercase tracking-tight">
+                        <h2 class="reveal font-display font-bold text-4xl md:text-5xl uppercase tracking-tight">
                             Powering the Spatial Intelligence Era
                         </h2>
-                        <p class="text-white/60">
+                        <p class="reveal reveal-delay-100 text-white/60">
                             UNEVA AI bridges the gap between human intuition and robotic execution through massive, meticulously curated datasets.
                         </p>
                     </div>
 
                     <!-- Category Lists -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="flex items-center gap-3 p-4 rounded-xl border border-white/5 bg-white/5">
+                        <div class="reveal flex items-center gap-3 p-4 rounded-xl border border-white/5 bg-white/5">
                             <span class="text-blue-500 font-bold">+</span>
                             <span class="text-sm font-medium text-white/80">Residential & Home Tasks</span>
                         </div>
-                        <div class="flex items-center gap-3 p-4 rounded-xl border border-white/5 bg-white/5">
+                        <div class="reveal reveal-delay-100 flex items-center gap-3 p-4 rounded-xl border border-white/5 bg-white/5">
                             <span class="text-blue-500 font-bold">+</span>
                             <span class="text-sm font-medium text-white/80">Commercial Kitchens</span>
                         </div>
-                        <div class="flex items-center gap-3 p-4 rounded-xl border border-white/5 bg-white/5">
+                        <div class="reveal flex items-center gap-3 p-4 rounded-xl border border-white/5 bg-white/5">
                             <span class="text-blue-500 font-bold">+</span>
                             <span class="text-sm font-medium text-white/80">Retail & Warehousing</span>
                         </div>
-                        <div class="flex items-center gap-3 p-4 rounded-xl border border-white/5 bg-white/5">
+                        <div class="reveal reveal-delay-100 flex items-center gap-3 p-4 rounded-xl border border-white/5 bg-white/5">
                             <span class="text-blue-500 font-bold">+</span>
                             <span class="text-sm font-medium text-white/80">Light Manufacturing</span>
                         </div>
-                        <div class="flex items-center gap-3 p-4 rounded-xl border border-white/5 bg-white/5">
+                        <div class="reveal flex items-center gap-3 p-4 rounded-xl border border-white/5 bg-white/5">
                             <span class="text-blue-500 font-bold">+</span>
                             <span class="text-sm font-medium text-white/80">Healthcare & Clinics</span>
                         </div>
-                        <div class="flex items-center gap-3 p-4 rounded-xl border border-white/5 bg-white/5">
+                        <div class="reveal reveal-delay-100 flex items-center gap-3 p-4 rounded-xl border border-white/5 bg-white/5">
                             <span class="text-blue-500 font-bold">+</span>
                             <span class="text-sm font-medium text-white/80">Custom Robotics Teleop</span>
                         </div>
@@ -456,16 +456,16 @@
                 <!-- Headline -->
                 <div class="lg:col-span-6 space-y-4">
                     <div class="text-xs font-mono tracking-widest text-blue-500 uppercase">◉ JOIN THE FORCE</div>
-                    <h2 class="font-display font-bold text-4xl md:text-5xl uppercase tracking-tight">
+                    <h2 class="reveal font-display font-bold text-4xl md:text-5xl uppercase tracking-tight">
                         Join the UNEVA AI Workforce
                     </h2>
-                    <p class="text-white/60">
+                    <p class="reveal reveal-delay-100 text-white/60">
                         Turn your daily routines into high-quality training data. Get paid to help build the future of AI.
                     </p>
                 </div>
 
                 <!-- DisplayCards Stack Graphic (Community counters styled) -->
-                <div class="lg:col-span-6 flex items-center justify-center min-h-[300px] relative overflow-hidden py-8">
+                <div class="reveal reveal-delay-200 lg:col-span-6 flex items-center justify-center min-h-[300px] relative overflow-hidden py-8">
                     <!-- Cards Stack wrapper -->
                     <div class="grid [grid-template-areas:'stack'] place-items-center relative">
                         <!-- Card 3 (Bottom) -->
@@ -508,7 +508,7 @@
             </div>
 
             <!-- Bottom Banner recruitment -->
-            <div class="border-thin bg-gradient-to-r from-blue-900/20 via-black to-neutral-900/30 rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden">
+            <div class="reveal border-thin bg-gradient-to-r from-blue-900/20 via-black to-neutral-900/30 rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden">
                 <div class="absolute top-0 right-0 w-64 h-64 bg-blue-600/10 rounded-full blur-[100px] pointer-events-none"></div>
                 <div class="space-y-2">
                     <h3 class="font-display font-bold text-2xl uppercase text-white">Are you ready to map the physical world for AI?</h3>
@@ -525,9 +525,9 @@
     <!-- Contact & Partnerships Section -->
     <section id="contact" class="py-24 px-6 border-t border-white/5 bg-neutral-950">
         <div class="max-w-3xl mx-auto text-center space-y-8">
-            <h2 class="font-display font-bold text-4xl uppercase tracking-tight">Initiate Collection Blueprint</h2>
-            <p class="text-white/60">Ready to align on custom hardware configuration, task taxonomy, and geographical targeting?</p>
-            <div class="border-thin p-8 rounded-2xl bg-neutral-900/50">
+            <h2 class="reveal font-display font-bold text-4xl uppercase tracking-tight">Initiate Collection Blueprint</h2>
+            <p class="reveal reveal-delay-100 text-white/60">Ready to align on custom hardware configuration, task taxonomy, and geographical targeting?</p>
+            <div class="reveal reveal-delay-200 border-thin p-8 rounded-2xl bg-neutral-900/50">
                 <form class="space-y-4">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <input type="text" placeholder="Name" class="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500 transition">
