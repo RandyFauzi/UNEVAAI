@@ -32,6 +32,9 @@
             </nav>
 
             <div class="flex items-center gap-4">
+                <a href="https://kamerakitaid.site/" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex items-center justify-center px-5 py-2 text-xs font-semibold uppercase tracking-wider bg-transparent border border-white/20 text-white hover:bg-white/10 rounded-full transition duration-300">
+                    Career
+                </a>
                 <a href="#contact" class="hidden sm:inline-flex items-center justify-center px-5 py-2 text-xs font-semibold uppercase tracking-wider bg-white text-black hover:bg-neutral-200 rounded-full transition duration-300">
                     Contact Partnerships
                 </a>
@@ -51,7 +54,11 @@
         <a href="#process" class="text-2xl font-display uppercase tracking-tight text-white/80 hover:text-white">Process</a>
         <a href="#scale" class="text-2xl font-display uppercase tracking-tight text-white/80 hover:text-white">Metrics</a>
         <a href="#recruit" class="text-2xl font-display uppercase tracking-tight text-white/80 hover:text-white">Workforce</a>
-        <a href="#contact" class="px-8 py-3 bg-white text-black font-semibold rounded-full uppercase tracking-wider text-sm mt-4">Contact Partnerships</a>
+        
+        <div class="flex flex-col gap-3 mt-4 text-center">
+            <a href="https://kamerakitaid.site/" target="_blank" rel="noopener noreferrer" class="px-8 py-3 bg-transparent border border-white/20 text-white font-semibold rounded-full uppercase tracking-wider text-sm hover:bg-white/10">Career</a>
+            <a href="#contact" class="px-8 py-3 bg-white text-black font-semibold rounded-full uppercase tracking-wider text-sm hover:bg-neutral-200">Contact Partnerships</a>
+        </div>
     </div>
 
     <!-- Section 1: Hero Banner (3D Sticky Horizontal Scroll) -->
