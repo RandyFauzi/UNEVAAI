@@ -211,7 +211,7 @@
             
             <div class="lg:col-span-5 space-y-6">
                 <div class="text-xs font-mono tracking-widest text-blue-500 uppercase">◉ Decentrilized Logistics</div>
-                <h2 class="font-display font-bold text-4xl md:text-5xl uppercase tracking-tight leading-tight">
+                <h2 class="reveal font-display font-bold text-4xl md:text-5xl uppercase tracking-tight leading-tight">
                     Diverse crowdsourcing, <br>global authenticity
                 </h2>
                 <p class="text-white/60 leading-relaxed">
@@ -229,7 +229,7 @@
                     <div class="absolute top-0 left-0 z-[1] h-full w-full bg-[radial-gradient(#333_1px,transparent_1px)] bg-[size:20px_20px]"></div>
                     
                     <div class="relative z-10 pt-8 h-full flex flex-col items-center">
-                        <h2 class="sm:text-5xl text-3xl font-semibold bg-gradient-to-b from-white to-[#9c9c9c] bg-clip-text text-transparent leading-[100%] tracking-tighter">
+                        <h2 class="reveal sm:text-5xl text-3xl font-semibold bg-gradient-to-b from-white to-[#9c9c9c] bg-clip-text text-transparent leading-[100%] tracking-tighter">
                             GLOBAL NETWORK
                         </h2>
                         
@@ -277,7 +277,7 @@
                 </div>
 
                 <!-- Tab Content Pane using BentoItem theme wrapper with corner brackets -->
-                <div class="lg:col-span-8 bento-item bg-neutral-950 flex flex-col justify-between min-h-[400px]">
+                <div class="lg:col-span-8 bento-item reveal bg-neutral-950 flex flex-col justify-between min-h-[400px]">
                     <!-- Holographic corner brackets -->
                     <div class="corner top-left"></div>
                     <div class="corner top-right"></div>
