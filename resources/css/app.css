@@ -1,0 +1,137 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+    --font-mono: 'DM Mono', monospace;
+    --color-ape-grey: #121214;
+    --color-ape-blue: #0b57d0;
+}
+
+/* Custom CSS for custom typographic treatments and micro-interactions */
+body {
+    background-color: #000000;
+    color: #ffffff;
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+}
+
+/* Condensing display font to match ApeChain premium look */
+.font-condensed {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: -0.04em;
+    font-stretch: condensed;
+}
+
+/* Custom glassmorphism and thin high-fidelity borders */
+.border-thin {
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.bg-blur-glass {
+    background-color: rgba(18, 18, 20, 0.7);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+}
+
+/* HUD / Tracking grid background effect */
+.grid-overlay {
+    background-size: 40px 40px;
+    background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+/* Holographic corner brackets & grid styles from 21st.dev BlueprintBentoGrid */
+.bento-grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(12, 1fr);
+}
+
+.bento-item {
+    position: relative;
+    background: rgba(11, 87, 208, 0.03);
+    border: 1px solid rgba(11, 87, 208, 0.15);
+    border-radius: 12px;
+    padding: 2rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+}
+
+.bento-item:hover {
+    background: rgba(11, 87, 208, 0.08);
+    border-color: rgba(6, 182, 212, 0.4);
+    box-shadow: 0 0 25px rgba(6, 182, 212, 0.15);
+    transform: translateY(-2px);
+}
+
+/* Corner bracket lines */
+.corner {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border: 2px solid transparent;
+    opacity: 0.5;
+    transition: all 0.3s ease;
+}
+
+.bento-item:hover .corner {
+    opacity: 1;
+    border-color: #06b6d4; /* cyan glow */
+}
+
+.top-left {
+    top: -1px;
+    left: -1px;
+    border-top-color: rgba(255, 255, 255, 0.3);
+    border-left-color: rgba(255, 255, 255, 0.3);
+}
+
+.top-right {
+    top: -1px;
+    right: -1px;
+    border-top-color: rgba(255, 255, 255, 0.3);
+    border-right-color: rgba(255, 255, 255, 0.3);
+}
+
+.bottom-left {
+    bottom: -1px;
+    left: -1px;
+    border-bottom-color: rgba(255, 255, 255, 0.3);
+    border-left-color: rgba(255, 255, 255, 0.3);
+}
+
+.bottom-right {
+    bottom: -1px;
+    right: -1px;
+    border-bottom-color: rgba(255, 255, 255, 0.3);
+    border-right-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Pulsing scanner bar anim */
+@keyframes scan {
+    0% { top: 0%; opacity: 0.8; }
+    50% { opacity: 0.3; }
+    100% { top: 100%; opacity: 0.8; }
+}
+
+.scanner-line {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.5), transparent);
+    position: absolute;
+    width: 100%;
+    animation: scan 6s infinite linear;
+}
+
+/* Zoom background keyframe */
+@keyframes zoom {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.12); }
+}
+
+
