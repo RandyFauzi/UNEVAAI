@@ -16,12 +16,11 @@ document.addEventListener('DOMContentLoaded', () => {
             // Get physical dimensions of canvas to render crisp high-res dots
             const currentWidth = canvas.offsetWidth;
             const currentHeight = canvas.offsetHeight;
-            const size = Math.max(currentWidth, currentHeight, 500);
 
             globe = createGlobe(canvas, {
                 devicePixelRatio: 2,
-                width: size * 2,
-                height: size * 2,
+                width: currentWidth * 2,
+                height: currentHeight * 2,
                 phi: 0,
                 theta: 0.3,
                 dark: 1,
@@ -29,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 diffuse: 1.2,
                 mapSamples: 16000,
                 mapBrightness: 6,
-                baseColor: [0.3, 0.3, 0.3], // Dark grey dots
+                baseColor: [1, 1, 1], // Pure white dots (glow/dark mode handles contrast)
                 markerColor: [0.1, 0.8, 1], // Cyan markers
                 glowColor: [0.05, 0.05, 0.05], // Subtle glow for dark background
                 opacity: 1,
